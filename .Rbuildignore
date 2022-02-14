@@ -1,0 +1,12 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^doc$
+^Meta$
+^.github
+^vignettes$
+^README.Rmd$
+^cran-comments\.md$
+^\.github/workflows/R-CMD-check\.yaml$

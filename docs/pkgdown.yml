@@ -1,0 +1,10 @@
+pandoc: 2.11.4
+pkgdown: 2.0.1
+pkgdown_sha: ~
+articles:
+  pkgdepR: pkgdepR.html
+last_built: 2022-02-11T02:38Z
+urls:
+  reference: https://pkgdepr.org/reference
+  article: https://pkgdepr.org/articles
+

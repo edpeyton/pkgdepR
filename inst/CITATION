@@ -1,0 +1,15 @@
+citHeader("To cite pkgdepR in publications use:")
+
+citEntry(
+  key = "pkgdepR",
+  entry = "Misc",
+  title        = "pkgdepR: A package for tracking and visualizing package function dependencies",
+  author       = personList(as.person("Ed Peyton")),
+  year         = "2022",
+  url          = "https://pkgdepr.org",
+
+  textVersion  =
+  paste("Ed Peyton (2022).",
+        "A package for tracking and visualizing package function dependencies.",
+        "URL: https://pkgdepr.org/")
+)
