@@ -6,7 +6,7 @@
 \alias{pkgdepR-package}
 \title{pkgdepR: Statically Determine Function Dependencies Between Packages}
 \description{
-An R package for (statically) determining and visualizing the intra-package and inter-package function dependencies. This may be useful for managing function dependencies across a code base of multiple R packages.
+An R package for (statically) determining and visualizing the package function dependencies. This may be useful for managing function dependencies across a code base of multiple R packages.
 }
 \details{
 The only function you're likely to need from pkgdepR is \link[pkgdepR]{deps}.
