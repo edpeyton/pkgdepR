@@ -18,6 +18,5 @@ Imports:
   dplyr,
   magrittr,
   viridisLite,
-  methods,
   scales,
   utils
