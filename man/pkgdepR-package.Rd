@@ -6,10 +6,17 @@
 \alias{pkgdepR-package}
 \title{pkgdepR: Statically Determine Function Dependencies Between Packages}
 \description{
-An R package for (statically) determining and visualizing the package function dependencies. This may be useful for managing function dependencies across a code base of multiple R packages.
+Statically determine and visualize the function dependencies within and across packages. This may be useful for managing function dependencies across a code base of multiple R packages.
 }
 \details{
-The only function you're likely to need from pkgdepR is \link[pkgdepR]{deps}.
+The only function you're likely to need from pkgdepR is \link[pkgdepR]{deps}, which returns an object of class \code{pkgdepR}.
+
+An object of class \code{pkgdepR} is a list with three named objects:
+\itemize{
+ \item{\strong{\code{funs}}}{: a data frame describing the functions. Contains columns \code{id}, \code{label}, \code{package}, \code{exported}, \code{group}, and \code{name}.}
+ \item{\strong{\code{links}}}{: a data frame containing the linkages between functions. Contains columns \code{from} and \code{to}.}
+ \item{\strong{\code{pkg}}}{: a character vector containing the packages explored.}
+}
 }
 \seealso{
 Useful links:

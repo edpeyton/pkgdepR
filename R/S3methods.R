@@ -75,6 +75,7 @@ plot.pkgdepR = function(x,
 #' @title Print pkgdepR object
 #' @param x An object of class \code{pkgdepR}.
 #' @param ... Redundant argument for consistency with method.
+#' @return No return value.
 #' @export
 print.pkgdepR = function(x, ...) {
   
@@ -107,6 +108,7 @@ print.pkgdepR = function(x, ...) {
 #' @title Summarise pkgdepR object
 #' @param object An object of class \code{pkgdepR}.
 #' @param ... Redundant argument for consistency with method.
+#' @return No return value.
 #' @export
 summary.pkgdepR = function(object, ...) {
   

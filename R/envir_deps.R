@@ -4,11 +4,17 @@
 #' @title Get environment dependency object
 #' @description This function creates an object of class \code{pkgdepR}, representing the network of function calls between one or more packages.
 #' @param pkg A character vector of the environments to explore. Should be on the \link[base]{search} path. Cannot be \code{base}. 
-#' @param exported_only Whether to include non-exported functions.
+#' @param exported_only Boolean. Whether to include non-exported functions.
 #' @examples
 #' library(pkgdepR)
 #' deps(pkg = "pkgdepR")
 #' @return An object of class \code{pkgdepR}.
+#' @details An object of class \code{pkgdepR} is a list with three named objects:
+##' \itemize{
+##'  \item{\strong{\code{funs}}}{: a data frame describing the functions. Contains columns \code{id}, \code{label}, \code{package}, \code{exported}, \code{group}, and \code{name}.}
+##'  \item{\strong{\code{links}}}{: a data frame containing the linkages between functions. Contains columns \code{from} and \code{to}.}
+##'  \item{\strong{\code{pkg}}}{: a character vector containing the packages explored.}
+##' }
 #' @export
 deps = function(pkg, exported_only = FALSE) {
   

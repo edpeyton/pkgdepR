@@ -11,6 +11,9 @@
 
 \item{...}{Redundant argument for consistency with method.}
 }
+\value{
+No return value.
+}
 \description{
 Summarise pkgdepR object
 }
