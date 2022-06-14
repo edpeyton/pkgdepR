@@ -12,7 +12,7 @@ status](https://www.r-pkg.org/badges/version/pkgdepR)](https://CRAN.R-project.or
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
-# Introduction <img src="inst/figures/hexsticker.png" align="right" style="width:25%">
+# Introduction
 
 Have you ever wanted to visualize dependencies between functions for a
 group of R packages you have developed?
