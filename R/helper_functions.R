@@ -12,6 +12,7 @@ get_functions = function(ns) {
   
 }
 
+
 #' @title Get namespace information
 #'
 #' @param ns A character representing the namespace to explore.
@@ -25,6 +26,7 @@ ls_namespace_info = function(ns, ...) {
   ls(..., envir = get(".__NAMESPACE__.", envir = ns, inherits = FALSE))
   
 }
+
 
 #' @title Get all information on a namespace
 #'
@@ -45,7 +47,7 @@ get_links = function(envir, funs) {
     names(which(x == 1))
   })
   
-  ms = data.frame(master = rep(names(ms), as.vector(unlist(lapply(ms, length)))), slave = unlist(ms, use.names = F))
+  ms = data.frame(master = rep(names(ms), as.vector(unlist(lapply(ms, length)))), slave = unlist(ms, use.names = FALSE))
   
   if (length(ms) < 2) {
     
@@ -78,7 +80,7 @@ build_mapping = function(envir, funs) {
   
   if (length(envir) == 1) {
     
-    if (length(funs) > 1) {
+    if (length(funs) > 0) {
       
       n = length(funs)
       
@@ -120,12 +122,16 @@ build_mapping = function(envir, funs) {
 }
 
 
+exists_anywhere = function(x, envir, ...) {
+  
+  exists(x, envir = getNamespace(gsub("^package:", "", envir)), ...)
+  
+}
+
 
 get_intra = function(fun_name, choices, where) {
-
-  where = as.list(where)
     
-  which = unlist(lapply(where, exists, x = fun_name), use.names = FALSE)
+  which = unlist(lapply(where, exists_anywhere, x = fun_name), use.names = FALSE)
   
   if (!any(which)) {
     
@@ -141,7 +147,7 @@ get_intra = function(fun_name, choices, where) {
     
   } else {
     
-    f = get(fun_name, pos = where[[seq_along(which)[which][1]]])
+    f = get(fun_name, envir = getNamespace(gsub("^package:", "", where)))
     
   }
   
@@ -346,14 +352,14 @@ convert_to_visnetwork = function(x, funs = NULL) {
       }
     }
     
+    from_to = data.frame(from_to)
+    names(from_to) = c("from", "to")
+    
   } else {
     
-    from_to = cbind(0, 0)
+    from_to = data.frame(from = integer(), to = integer())
     
   }
-  
-  from_to = data.frame(from_to)
-  names(from_to) = c("from", "to")
   
   y$funs = name_fun
   y$links = from_to

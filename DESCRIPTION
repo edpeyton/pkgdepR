@@ -11,7 +11,7 @@ License: MIT + file LICENSE
 URL: https://pkgdepR.org/
 BugReports: https://github.com/edpeyton/pkgdepR/issues
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+RoxygenNote: 7.3.2
 Imports:
   visNetwork,
   dplyr,

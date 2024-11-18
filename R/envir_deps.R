@@ -10,10 +10,10 @@
 #' deps(pkg = "pkgdepR")
 #' @return An object of class \code{pkgdepR}.
 #' @details An object of class \code{pkgdepR} is a list with three named objects:
-##' \itemize{
-##'  \item{\strong{\code{funs}}}{: a data frame describing the functions. Contains columns \code{id}, \code{label}, \code{package}, \code{exported}, \code{group}, and \code{name}.}
-##'  \item{\strong{\code{links}}}{: a data frame containing the linkages between functions. Contains columns \code{from} and \code{to}.}
-##'  \item{\strong{\code{pkg}}}{: a character vector containing the packages explored.}
+##' \describe{
+##'  \item{\strong{\code{funs}}{: a data frame describing the functions. Contains columns \code{id}, \code{label}, \code{package}, \code{exported}, \code{group}, and \code{name}.}|
+##'  \item{\strong{\code{links}}{: a data frame containing the linkages between functions. Contains columns \code{from} and \code{to}.}|
+##'  \item{\strong{\code{pkg}}{: a character vector containing the packages explored.}|
 ##' }
 #' @export
 deps = function(pkg, exported_only = FALSE) {
@@ -56,8 +56,8 @@ deps = function(pkg, exported_only = FALSE) {
       non_exported = character(0)
     }
     
-    if (length(name.functions) > 1) {
-      calls = get_links(paste0("package:", i), funs = name.functions)
+    if (length(name.functions) > 0) {
+      calls = pkgdepR:::get_links(paste0("package:", i), funs = name.functions)
     } else {
       calls = NULL
     }
@@ -66,13 +66,13 @@ deps = function(pkg, exported_only = FALSE) {
       name.functions = NULL
     }
     
-    if (!is.null(dim(vis$funs)[1])) {
+    if (!is.null(dim(vis$funs)[1]) && nrow(vis$funs)) {
       n = max(vis$funs$id %>% as.numeric())
     } else {
       n = 0
     }
     
-    vis0 = convert_to_visnetwork(unique(calls), name.functions)
+    vis0 = pkgdepR:::convert_to_visnetwork(unique(calls), name.functions)
     vis0$funs = vis0$funs %>% dplyr::mutate(id = as.character(as.numeric(id) + n)) %>% dplyr::mutate(package = i)
     vis0$links = vis0$links %>% dplyr::mutate(from = from + n, to = to + n)
     
@@ -84,7 +84,7 @@ deps = function(pkg, exported_only = FALSE) {
       
     }
     
-    vis0$funs$label = paste0(vis0$funs$package, "::", vis0$funs$label)
+    vis0$funs = vis0$funs%>% dplyr::mutate(label = paste0(package, "::", label))
     
     vis$funs = rbind(vis$funs, vis0$funs)
     

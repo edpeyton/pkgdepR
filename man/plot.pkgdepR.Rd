@@ -11,15 +11,17 @@
   main = NULL,
   submain = NULL,
   alpha = 0.8,
+  footer = NULL,
+  background = "rgba(0, 0, 0, 0)",
   ...
 )
 }
 \arguments{
 \item{x}{An object of class \code{pkgdepR}.}
 
-\item{width}{The width of the vis.js render.}
+\item{width}{The width of the \code{vis.js} render.}
 
-\item{height}{The height of the vis.js render.}
+\item{height}{The height of the \code{vis.js} render.}
 
 \item{main}{The title. To remove the title, pass \code{list(text = NULL)}.}
 
@@ -27,7 +29,11 @@
 
 \item{alpha}{A transparency value to use for colors. Must be between 0 and 1.}
 
-\item{...}{Other arguments passed onto \link[visNetwork]{visNetwork} and  \link[viridisLite]{viridis}.}
+\item{footer}{A character or a named list. See \link[visNetwork]{visNetwork}.}
+
+\item{background}{A background color. See \link[visNetwork]{visNetwork}.}
+
+\item{...}{Other arguments passed onto \link[viridisLite]{viridis}.}
 }
 \value{
 An object of classes \code{visNetwork} and \code{htmlwidget}.
