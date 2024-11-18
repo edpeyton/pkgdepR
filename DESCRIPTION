@@ -1,7 +1,7 @@
 Package: pkgdepR
 Type: Package
 Title: Statically Determine Function Dependencies Between Packages
-Version: 1.0.0
+Version: 1.1.0
 Authors@R: c(person(given = "Ed", family = "Peyton", email = "edppeyton@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-1427-0306")))
 Maintainer: Ed Peyton <edppeyton@gmail.com>
 Description: Statically determine and visualize the function dependencies
