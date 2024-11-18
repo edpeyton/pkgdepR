@@ -80,7 +80,7 @@ plot.pkgdepR = function(x,
   x$funs = x$funs %>% dplyr::mutate(shape = ifelse(!exported, "square", shape))
   
   visNetwork::visNetwork(x[[1]], x[[2]], width = width, height = height, main = main, submain = submain, footer = footer, background = background) %>%
-    visNetwork::visEdges(arrows = "from", color = list(color = "black", opacity = 0.6), arrowStrikethrough = FALSE) %>%
+    visNetwork::visEdges(arrows = "from", color = list(color = "#333333", opacity = 1, hover = "#111111", highlight = "black"), arrowStrikethrough = FALSE) %>%
     visNetwork::visNodes() %>%
     visNetwork::visOptions(highlightNearest = list(enabled = TRUE, hover = FALSE),
                            nodesIdSelection = list(main = "Select function",
