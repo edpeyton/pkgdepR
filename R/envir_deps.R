@@ -11,9 +11,9 @@
 #' @return An object of class \code{pkgdepR}.
 #' @details An object of class \code{pkgdepR} is a list with three named objects:
 ##' \describe{
-##'  \item{\strong{\code{funs}}{: a data frame describing the functions. Contains columns \code{id}, \code{label}, \code{package}, \code{exported}, \code{group}, and \code{name}.}|
-##'  \item{\strong{\code{links}}{: a data frame containing the linkages between functions. Contains columns \code{from} and \code{to}.}|
-##'  \item{\strong{\code{pkg}}{: a character vector containing the packages explored.}|
+##'  \item{\strong{\code{funs}}}{: a data frame describing the functions. Contains columns \code{id}, \code{label}, \code{package}, \code{exported}, \code{group}, and \code{name}.}|
+##'  \item{\strong{\code{links}}}{: a data frame containing the linkages between functions. Contains columns \code{from} and \code{to}.}|
+##'  \item{\strong{\code{pkg}}}{: a character vector containing the packages explored.}|
 ##' }
 #' @export
 deps = function(pkg, exported_only = FALSE) {
@@ -57,7 +57,7 @@ deps = function(pkg, exported_only = FALSE) {
     }
     
     if (length(name.functions) > 0) {
-      calls = pkgdepR:::get_links(paste0("package:", i), funs = name.functions)
+      calls = get_links(paste0("package:", i), funs = name.functions)
     } else {
       calls = NULL
     }
@@ -72,7 +72,7 @@ deps = function(pkg, exported_only = FALSE) {
       n = 0
     }
     
-    vis0 = pkgdepR:::convert_to_visnetwork(unique(calls), name.functions)
+    vis0 = convert_to_visnetwork(unique(calls), name.functions)
     vis0$funs = vis0$funs %>% dplyr::mutate(id = as.character(as.numeric(id) + n)) %>% dplyr::mutate(package = i)
     vis0$links = vis0$links %>% dplyr::mutate(from = from + n, to = to + n)
     

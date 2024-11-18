@@ -44,6 +44,9 @@ plot.pkgdepR = function(x,
                         m,
                         ...) {
   
+  exported = NULL
+  shape = NULL
+  
   if (missing(n)) {
     n = length(unique(x$funs$package))
   }
