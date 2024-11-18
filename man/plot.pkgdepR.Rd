@@ -13,6 +13,8 @@
   alpha = 0.8,
   footer = NULL,
   background = "rgba(0, 0, 0, 0)",
+  n,
+  m,
   ...
 )
 }
@@ -32,6 +34,10 @@
 \item{footer}{A character or a named list. See \link[visNetwork]{visNetwork}.}
 
 \item{background}{A background color. See \link[visNetwork]{visNetwork}.}
+
+\item{n}{(Optional) The number of colours to request from \link[viridisLite]{viridis}. Allows the user to set a more granular palette.}
+
+\item{m}{(Optional) The subset of colours of the custom palette (specified by \code{n}) to use in the plot.}
 
 \item{...}{Other arguments passed onto \link[viridisLite]{viridis}.}
 }

@@ -3,6 +3,7 @@
 
 # pkgdepR
 
+[![](https://cranlogs.r-pkg.org/badges/pkgdepR)](https://cran.r-project.org/package=pkgdepR)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/pkgdepR)](https://cran.r-project.org/package=pkgdepR)
 [![R build
 status](https://github.com/edpeyton/pkgdepR/workflows/R-CMD-check/badge.svg)](https://github.com/edpeyton/pkgdepR/actions/)
@@ -11,7 +12,7 @@ status](https://www.r-pkg.org/badges/version/pkgdepR)](https://CRAN.R-project.or
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 
-# Introduction
+# Introduction <img src="inst/figures/hexsticker.png" align="right" style="width:25%">
 
 Have you ever wanted to visualize dependencies between functions for a
 group of R packages you have developed?
@@ -40,10 +41,10 @@ should already be on the search path) and explores how each of the
 functions in each of the namespaces interact. It does this in two
 stages:
 
--   Getting all intra-package function dependencies for each package;
-    *and*  
--   Getting all inter-package function dependencies for each combination
-    of packages.
+- Getting all intra-package function dependencies for each package;
+  *and*  
+- Getting all inter-package function dependencies for each combination
+  of packages.
 
 Each defined name in a particular package’s namespace that is also a
 function is then decomposed. From this decomposition, if any function is
@@ -90,6 +91,7 @@ the package’s namespace. However, `bar()` will not be picked up as it is
 only defined at run-time when `foo()` is called.
 
 ``` r
+
 # @title foo function
 # @export
 foo = function() { # - this will be picked up!
@@ -108,6 +110,7 @@ occur at run-time. Let’s add to the previous example, by adding a
 function `bar()` declared in the package namespace we are interested in.
 
 ``` r
+
 # @title bar function
 # @export
 bar = function() { # - this will be picked up!
@@ -148,6 +151,7 @@ Here we’ll show an example of how to use `{pkgdepR}`.
 First, let’s load the required packages.
 
 ``` r
+
 library(magrittr)
 library(pkgdepR)
 ```
@@ -170,11 +174,11 @@ v # alternatively, summary(v) or print(v)
 #> pkgdepR object
 #> ------------------------------
 #> Packages:    pkgdepR
-#> Total nodes: 15
-#> Total links: 18
+#> Total nodes: 16
+#> Total links: 17
 #>   -Between packages: 0
-#>   -Within packages:  18
-#>     --Between functions: 17
+#>   -Within packages:  17
+#>     --Between functions: 16
 #>     --Self-referential:  1
 ```
 
@@ -198,12 +202,12 @@ v # alternatively, summary(v) or print(v)
 #> pkgdepR object
 #> ------------------------------
 #> Packages:    pkgdepR, magrittr
-#> Total nodes: 67
-#> Total links: 48
-#>   -Between packages: 7
-#>   -Within packages:  41
-#>     --Between functions: 39
-#>     --Self-referential:  2
+#> Total nodes: 64
+#> Total links: 30
+#>   -Between packages: 6
+#>   -Within packages:  24
+#>     --Between functions: 23
+#>     --Self-referential:  1
 ```
 
 ``` r

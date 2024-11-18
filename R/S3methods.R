@@ -20,6 +20,8 @@ is.pkgdepR = function(x) {
 #' @param alpha A transparency value to use for colors. Must be between 0 and 1.
 #' @param footer A character or a named list. See \link[visNetwork]{visNetwork}.
 #' @param background  A background color. See \link[visNetwork]{visNetwork}.
+#' @param n (Optional) The number of colours to request from \link[viridisLite]{viridis}. Allows the user to set a more granular palette.
+#' @param m (Optional) The subset of colours of the custom palette (specified by \code{n}) to use in the plot.
 #' @param ... Other arguments passed onto \link[viridisLite]{viridis}.
 #' @examples
 #' library(pkgdepR)
@@ -38,7 +40,19 @@ plot.pkgdepR = function(x,
                         alpha = 0.8,
                         footer = NULL,
                         background = "rgba(0, 0, 0, 0)",
+                        n,
+                        m,
                         ...) {
+  
+  if (missing(n)) {
+    n = length(unique(x$funs$package))
+  }
+  
+  if (missing(m)) {
+    m = 1:length(unique(x$funs$package))
+  } else {
+    m = pmin(m, n)
+  }
   
   if (is.null(main)) {
     main = list(text = "Package function network<br></br>", 
@@ -53,7 +67,7 @@ plot.pkgdepR = function(x,
   alpha = max(min(alpha, 1), 0)
 
   
-  cols = grDevices::col2rgb(viridisLite::viridis(n = length(unique(x$funs$package))))
+  cols = grDevices::col2rgb(viridisLite::viridis(n = n, ...)[m])
   cols = apply(cols, 2, FUN = function(x, alpha) {return(paste0("rgba(", paste0(x, collapse = ", "), ", ", alpha, ")"))}, alpha = alpha)
   cols = data.frame(package = unique(x$funs$package), color = cols)
   
