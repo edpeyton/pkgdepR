@@ -26,7 +26,7 @@ jobs:
           - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
-      GITHUB_PAT: ${{ secrets.GITHUB_PAT_GITHUB_COM }}
+      GITHUB_PAT: ${{ secrets.GH_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
 
     steps:
