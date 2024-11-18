@@ -1,18 +1,9 @@
-## Resubmission
-This is a resubmission. In this version I have:
 
-* Edited the DESCRIPTION file title to remove "This package" reference.
+## Package update
+Minor package update mainly addressing:
 
-* Added `\value{...}` entries to the Rd files for
-  * print.pkgdepR
-  * summary.pkgdepR
-  
-* Added further details about the object class `pkgdepR` to
-  * `pkgdepR-package.Rd`
-  * `deps.Rd`
-
-* Have re-run all the same R-CMD-check's as done in initial submission
-  * There were no ERRORs, WARNINGs or NOTEs.
+* Fixing bug in plot method.
+* Fixing issue with identifying function links for non-exported functions.
 
 ## R CMD check results
 There were no ERRORs, WARNINGs or NOTEs. 
@@ -26,9 +17,10 @@ Package has been deployed on macOS, Windows and Ubuntu via GitHub Actions:
 * ubuntu-latest (release)
 * ubuntu-latest (oldrel-1)
 
-Also tested on (`devtools::check_win_devel`)
+## revdepcheck
 
-* windows (devel)
+No issues after running `revdepcheck::revdep_check(...)`.
 
-pkgdown site available:
+
+`pkgdown` site available at:
 https://pkgdepr.org/.
