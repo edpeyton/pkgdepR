@@ -1,4 +1,9 @@
 
+## Resubmssion
+Fixing problems with CRAN submission:
+* Fixing problem in roxygen2
+* Fixing CITATION file
+
 ## Package update
 Minor package update mainly addressing:
 
