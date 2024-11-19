@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
     }
 </style>
 
-## About  <img src="hexsticker.png" align="right" style="width:25%">
+## About  <img src="hexsticker.png" align="right" style="width:25%" alt="pkgdepR hex sticker">
 
 ### Why create `{pkgdepR}`?
 

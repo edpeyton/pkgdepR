@@ -1,4 +1,8 @@
 
+## Resubmssion with patch
+* Fixing bug not discovered in initial push to CRAN.
+* Fixed some roxygen2 documentation causing NOTEs in CRAN build.
+
 ## Resubmssion
 Fixing problems with CRAN submission:
 * Fixing problem in roxygen2

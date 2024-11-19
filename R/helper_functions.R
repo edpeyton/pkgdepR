@@ -216,6 +216,10 @@ get_inter = function(fun_name, choices, where, mapping) {
     
   }
   
+  if (length(fun_list)==0) {
+    return(mapping)
+  }
+  
   y = fun_list
   y = lapply(y, function(x, fun_name) {match(x, fun_name, nomatch = 0)}, fun_name = choices)
   
