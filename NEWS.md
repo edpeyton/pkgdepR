@@ -1,3 +1,7 @@
+# pkgdepR 1.1.1
+
+* Bug fix in `deps`
+
 # pkgdepR 1.1.0
 
 * Fixed bug in plot method of `pkgdepR` objects

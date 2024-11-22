@@ -1,84 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://pkgdepr.org/404.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/articles/pkgdepR.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/index.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/all_info_ns.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/build_funmat.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/called_by_intra.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/deps.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/envir_deps.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/get_functions.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/grapes-greater-than-grapes.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/hello.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/install_helper_pkgs.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/is.pkgdepR.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/links_for_all.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/ls_namespace_info.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/masters_slaves.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/pkdepR-print.pkgdepR.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/pkgdepR-package.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/plot.pkgdepR.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/print.pkgdepR.html</loc>
-  </url>
-  <url>
-    <loc>https://pkgdepr.org/reference/summary.pkgdepR.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://pkgdepr.org/404.html</loc></url>
+<url><loc>https://pkgdepr.org/articles/index.html</loc></url>
+<url><loc>https://pkgdepr.org/articles/pkgdepR.html</loc></url>
+<url><loc>https://pkgdepr.org/authors.html</loc></url>
+<url><loc>https://pkgdepr.org/index.html</loc></url>
+<url><loc>https://pkgdepr.org/LICENSE-text.html</loc></url>
+<url><loc>https://pkgdepr.org/LICENSE.html</loc></url>
+<url><loc>https://pkgdepr.org/news/index.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/all_info_ns.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/build_funmat.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/called_by_intra.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/deps.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/envir_deps.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/get_functions.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/grapes-greater-than-grapes.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/hello.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/index.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/install_helper_pkgs.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/is.pkgdepR.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/links_for_all.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/ls_namespace_info.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/masters_slaves.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/pipe.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/pkdepR-print.pkgdepR.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/pkgdepR-package.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/plot.pkgdepR.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/print.pkgdepR.html</loc></url>
+<url><loc>https://pkgdepr.org/reference/summary.pkgdepR.html</loc></url>
 </urlset>
+
