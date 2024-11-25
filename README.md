@@ -17,26 +17,23 @@ stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://
 Have you ever wanted to visualize dependencies between functions for a
 group of R packages you have developed?
 
-Then try using `{pkgdepR}`!
-
-`{pkgdepR}` takes any number of (correctly compiled) R packages and
-finds the links between all of the function in those namespaces.
+`pkgdepR` takes any number of (correctly compiled) R packages and finds
+the links between all of the function in those namespaces.
 
 ## About
 
-### Why create `{pkgdepR}`?
+### Motivation
 
-`{pkgdepR}` was created to solve a particular problem I had faced when
-developing interrelated R packages within organizations. Oftentimes, I
-would want to see (visually) how all the functions in one package
-interacted with all the functions in another package.
+`pkgdepR` was created to solve a particular problem when developing
+interrelated R packages and wanting to see how all the functions in each
+package interacted.
 
 This was particularly useful in managing the function dependencies
 across a large code base of R packages.
 
-### How does `{pkgdepR}` work?
+### How does it work?
 
-`{pkgdepR}` simply takes as an argument a vector of package names (that
+`pkgdepR` simply takes as an argument a vector of package names (that
 should already be on the search path) and explores how each of the
 functions in each of the namespaces interact. It does this in two
 stages:
@@ -61,14 +58,14 @@ ignored in the linkage. This is because the linkage would be
 environment-dependent and would change depending on the contents of the
 search path in that particular session.
 
-### S3 methods for `{pkgdepR}` objects
+### S3 methods
 
-The main wrapper function for `{pkgdepR}` is `pkgdepR::deps(...)` which
+The main wrapper function for `pkgdepR` is `pkgdepR::deps(...)` which
 returns an object of class `pkgdepR`. An S3 method has been created for
 objects of class `pkgdepR` so they can be easily plotted. See
 `?pkgdepR::plot.pkgdepR` for further details.
 
-`{pkgdepR}` makes use of the fantastic
+`pkgdepR` makes use of the fantastic
 [visNetwork](https://github.com/datastorm-open/visNetwork) package for
 creating an interactive network visualization of the functions present
 in R packages.
@@ -91,7 +88,6 @@ the package’s namespace. However, `bar()` will not be picked up as it is
 only defined at run-time when `foo()` is called.
 
 ``` r
-
 # @title foo function
 # @export
 foo = function() { # - this will be picked up!
@@ -110,7 +106,6 @@ occur at run-time. Let’s add to the previous example, by adding a
 function `bar()` declared in the package namespace we are interested in.
 
 ``` r
-
 # @title bar function
 # @export
 bar = function() { # - this will be picked up!
@@ -130,7 +125,7 @@ important to be aware of the behaviour nonetheless.
 
 ## Installation
 
-You can install the released version of `{pkgdepR}` from
+You can install the released version of `pkgdepR` from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
@@ -146,12 +141,11 @@ devtools::install_github("edpeyton/pkgdepR")
 
 # How to use
 
-Here we’ll show an example of how to use `{pkgdepR}`.
+Here we’ll show an example of how to use `pkgdepR`.
 
 First, let’s load the required packages.
 
 ``` r
-
 library(magrittr)
 library(pkgdepR)
 ```
@@ -169,7 +163,7 @@ v = pkgdepR::deps(pkg = "pkgdepR")
 We can see a summary of the object
 
 ``` r
-v # alternatively, summary(v) or print(v)
+v
 #> 
 #> pkgdepR object
 #> ------------------------------

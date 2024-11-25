@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   pkgdepR: pkgdepR.html
-last_built: 2024-11-22T08:00Z
+last_built: 2024-11-25T07:17Z
 urls:
   reference: https://pkgdepr.org/reference
   article: https://pkgdepr.org/articles

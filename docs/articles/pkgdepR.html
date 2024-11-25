@@ -65,27 +65,34 @@
         border: 0;
     }
 </style>
+<div class="section level2">
+<h2 id="introduction">Introduction
+<img src="hexsticker.png" align="right" style="width:25%"><a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p>Have you ever wanted to visualize dependencies between functions for
+a group of R packages you have developed?</p>
+<p><code>pkgdepR</code> takes any number of (correctly compiled) R
+packages and finds the links between all of the function in those
+namespaces.</p>
 <div class="section level3">
-<h3 id="about">About
-<img src="hexsticker.png" align="right" style="width:25%" alt="pkgdepR hex sticker"><a class="anchor" aria-label="anchor" href="#about"></a>
+<h3 id="about">About<a class="anchor" aria-label="anchor" href="#about"></a>
 </h3>
 <div class="section level4">
-<h4 id="why-create-pkgdepr">Why create <code>{pkgdepR}</code>?<a class="anchor" aria-label="anchor" href="#why-create-pkgdepr"></a>
+<h4 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
 </h4>
-<p><a href="https://pkgdepR.org/" class="external-link">pkgdepR</a> was created to solve a particular problem I
-had faced when developing interrelated R packages within organizations.
-Oftentimes, I would want to see (visually) how all the functions in one
-package interacted with all the functions in another package.</p>
+<p><code>pkgdepR</code> was created to solve a particular problem when
+developing interrelated R packages and wanting to see how all the
+functions in each package interacted.</p>
 <p>This was particularly useful in managing the function dependencies
 across a large code base of R packages.</p>
 </div>
 <div class="section level4">
-<h4 id="how-does-pkgdepr-work">How does <code>{pkgdepR}</code> work?<a class="anchor" aria-label="anchor" href="#how-does-pkgdepr-work"></a>
+<h4 id="how-does-it-work">How does it work?<a class="anchor" aria-label="anchor" href="#how-does-it-work"></a>
 </h4>
-<p><a href="https://pkgdepR.org/" class="external-link">pkgdepR</a> simply takes as an argument a vector of
-package names (that should already be on the search path) and explores
-how each of the functions in each of the namespaces interact. It does
-this in two stages:</p>
+<p><code>pkgdepR</code> simply takes as an argument a vector of package
+names (that should already be on the search path) and explores how each
+of the functions in each of the namespaces interact. It does this in two
+stages:</p>
 <ul>
 <li>Getting all intra-package function dependencies for each package;
 <em>and</em><br>
@@ -108,60 +115,94 @@ be environment-dependent and would change depending on the contents of
 the search path in that particular session.</p>
 </div>
 <div class="section level4">
-<h4 id="s3-methods-for-pkgdepr-objects">S3 methods for <code>{pkgdepR}</code> objects<a class="anchor" aria-label="anchor" href="#s3-methods-for-pkgdepr-objects"></a>
+<h4 id="s3-methods">S3 methods<a class="anchor" aria-label="anchor" href="#s3-methods"></a>
 </h4>
-<p>The main wrapper function for <a href="https://pkgdepR.org/" class="external-link">pkgdepR</a> is
+<p>The main wrapper function for <code>pkgdepR</code> is
 <code>pkgdepR::deps(...)</code> which returns an object of class
 <code>pkgdepR</code>. An S3 method has been created for objects of class
 <code>pkgdepR</code> so they can be easily plotted. See
 <code><a href="../reference/plot.pkgdepR.html">?pkgdepR::plot.pkgdepR</a></code> for further details.</p>
+<p><code>pkgdepR</code> makes use of the fantastic <a href="https://github.com/datastorm-open/visNetwork" class="external-link">visNetwork</a>
+package for creating an interactive network visualization of the
+functions present in R packages.</p>
 <p>All implemented methods for this class are:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/methods.html" class="external-link">methods</a></span><span class="op">(</span>class <span class="op">=</span> <span class="st">"pkgdepR"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] plot    print   summary</span></span>
 <span><span class="co">#&gt; see '?methods' for accessing help and source code</span></span></code></pre></div>
-<div class="section level5">
-<h5 id="plotting-pkgdepr-objects">Plotting <code>{pkgdepR}</code> objects<a class="anchor" aria-label="anchor" href="#plotting-pkgdepr-objects"></a>
-</h5>
-<p>Objects of class can be plot using <code>plot(...)</code>. In this
-visualization, functions that are exported from their namespace are
-shown as circles, whilst non-exported functions are shown as squares. No
-arrow should go from a square node to another node of a different
-colour.</p>
 </div>
 </div>
+<div class="section level3">
+<h3 id="caveats">Caveats<a class="anchor" aria-label="anchor" href="#caveats"></a>
+</h3>
+<p>The links between functions are determined
+<strong>statically</strong>, meaning the dependencies are identified
+without executing any code. As such, any functions that are defined
+dynamically at run-time will not be picked up. In the example below,
+<code>foo()</code> will be picked up as it is declared in the package’s
+namespace. However, <code>bar()</code> will not be picked up as it is
+only defined at run-time when <code>foo()</code> is called.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># @title foo function</span></span>
+<span><span class="co"># @export</span></span>
+<span><span class="va">foo</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span> <span class="co"># - this will be picked up!</span></span>
+<span></span>
+<span>  <span class="va">bar</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span> <span class="co"># - this won't be picked up!</span></span>
+<span>  </span>
+<span>  <span class="op">}</span></span>
+<span>  </span>
+<span>  <span class="fu">bar</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Similarly, there can be cases where linkages are created that may not
+occur at run-time. Let’s add to the previous example, by adding a
+function <code>bar()</code> declared in the package namespace we are
+interested in.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># @title bar function</span></span>
+<span><span class="co"># @export</span></span>
+<span><span class="va">bar</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span> <span class="co"># - this will be picked up!</span></span>
+<span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Then, statically, it appears that <code>foo()</code> is calling the
+<code>bar()</code> from the namespace we are interested in. However, at
+run-time, we know this is <strong>not</strong> the case, as
+<code>bar()</code> is clearly defined locally and it is the local
+function that is called. In this instance, <code>pkgdepR</code> will
+show a link between <code>package::foo()</code> and
+<code>package::bar()</code> when no real run-time dependency exists.</p>
+<p>These cases will rarely arise in normal package development, but it
+is important to be aware of the behaviour nonetheless.</p>
 </div>
 <div class="section level3">
 <h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h3>
-<p>You can install the released version of <a href="https://pkgdepR.org/" class="external-link">pkgdepR</a> from
-<a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<p>You can install the released version of <code>pkgdepR</code> from <a href="https://CRAN.R-project.org" class="external-link">CRAN</a> with:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pkgdepR"</span><span class="op">)</span></span></code></pre></div>
 <p>And the development version from <a href="https://github.com/edpeyton/pkgdepR" class="external-link">GitHub</a> with:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"edpeyton/pkgdepR"</span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 <div class="section level2">
 <h2 id="how-to-use">How to use<a class="anchor" aria-label="anchor" href="#how-to-use"></a>
 </h2>
-<p>Here we’ll show an example of how to use <a href="https://pkgdepR.org/" class="external-link">pkgdepR</a> using
-some test packages that are hosted on GitHub.</p>
-<p>First, let’s load the required example packages.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pkgdepR.org/" class="external-link">pkgdepR</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span></code></pre></div>
+<p>Here we’ll show an example of how to use <code>pkgdepR</code>.</p>
+<p>First, let’s load the required packages.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pkgdepR.org/" class="external-link">pkgdepR</a></span><span class="op">)</span></span></code></pre></div>
 <p>The required packages have now been added to the search path.</p>
 <div class="section level3">
 <h3 id="single-package">Single package<a class="anchor" aria-label="anchor" href="#single-package"></a>
 </h3>
 <p>Create a <code>pkgdepR</code> object as follows:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">v</span> <span class="op">=</span> <span class="fu">pkgdepR</span><span class="fu">::</span><span class="fu"><a href="../reference/deps.html">deps</a></span><span class="op">(</span>pkg <span class="op">=</span> <span class="st">"pkgdepR"</span><span class="op">)</span></span></code></pre></div>
 <p>We can see a summary of the object</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">v</span> <span class="co"># alternatively, summary(v) or print(v)</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">v</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; pkgdepR object</span></span>
 <span><span class="co">#&gt; ------------------------------</span></span>
@@ -173,7 +214,7 @@ some test packages that are hosted on GitHub.</p>
 <span><span class="co">#&gt;     --Between functions: 16</span></span>
 <span><span class="co">#&gt;     --Self-referential:  1</span></span></code></pre></div>
 <p>To see the network visualization, simply call plot.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">v</span>, height <span class="op">=</span> <span class="st">"500px"</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>text <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div id="htmlwidget-ac96cb3ee4656e2e9ec3" style="width:100%;height:500px;" class="visNetwork html-widget"></div>
 <script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"nodes":{"id":["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],"label":["pkgdepR::all_info_ns","pkgdepR:::build_mapping","pkgdepR:::convert_to_visnetwork","pkgdepR::deps","pkgdepR:::exists_anywhere","pkgdepR:::get_fun_parts","pkgdepR::get_functions","pkgdepR:::get_inter","pkgdepR:::get_intra","pkgdepR:::get_links","pkgdepR:::get_mapping","pkgdepR:::is.pkgdepR","pkgdepR::ls_namespace_info","pkgdepR:::plot.pkgdepR","pkgdepR:::print.pkgdepR","pkgdepR:::summary.pkgdepR"],"package":["pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR"],"exported":[1,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0],"group":["pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR"],"name":["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"],"color":["rgba(68, 1, 84, 0.8)","rgba(68, 1, 84, 0.8)","rgba(68, 1, 84, 0.8)","rgba(68, 1, 84, 0.8)","rgba(68, 1, 84, 0.8)","rgba(68, 1, 84, 0.8)","rgba(68, 1, 84, 0.8)","rgba(68, 1, 84, 0.8)","rgba(68, 1, 84, 0.8)","rgba(68, 1, 84, 0.8)","rgba(68, 1, 84, 0.8)","rgba(68, 1, 84, 0.8)","rgba(68, 1, 84, 0.8)","rgba(68, 1, 84, 0.8)","rgba(68, 1, 84, 0.8)","rgba(68, 1, 84, 0.8)"],"shape":["dot","square","square","dot","square","square","dot","square","square","square","square","square","dot","square","square","square"]},"edges":{"from":["13","8","9","11","1","3","7","10","6","1","6","7","5","6","2","7","15"],"to":["1","2","2","2","4","4","4","4","6","8","8","8","9","9","10","11","16"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false},"edges":{"arrows":"from","arrowStrikethrough":false,"color":{"color":"#333333","opacity":1,"hover":"#111111","highlight":"black"}},"interaction":{"dragNodes":true,"hover":true,"zoomSpeed":1},"physics":{"solver":"repulsion","stabilization":{"enabled":true,"iterations":4000,"onlyDynamicEdges":false}}},"groups":["pkgdepR"],"width":null,"height":"500px","idselection":{"enabled":true,"style":"width: 280px; height: 26px;","useLabels":true,"main":"Select function"},"byselection":{"enabled":true,"style":"width: 280px; height: 26px;","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false,"variable":"group","main":"Select package","values":["pkgdepR"]},"main":{"text":null,"style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":{"text":"<strong>Packages: [pkgdepR]<\/strong><br><\/br>","style":"font-family:Helvetica, Helvetica, Times, serif; font-size:16px; text-align:left;"},"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script><p><br><br><br><br><br><br></p>
@@ -182,10 +223,10 @@ some test packages that are hosted on GitHub.</p>
 <h3 id="multiple-packages">Multiple packages<a class="anchor" aria-label="anchor" href="#multiple-packages"></a>
 </h3>
 <p>Visualizing multiple packages works in a similar way.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">v</span> <span class="op">=</span> <span class="fu">pkgdepR</span><span class="fu">::</span><span class="fu"><a href="../reference/deps.html">deps</a></span><span class="op">(</span>pkg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pkgdepR"</span>, <span class="st">"magrittr"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">v</span> <span class="co"># alternatively, summary(v) or print(v)</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">v</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; pkgdepR object</span></span>
 <span><span class="co">#&gt; ------------------------------</span></span>
@@ -196,7 +237,7 @@ some test packages that are hosted on GitHub.</p>
 <span><span class="co">#&gt;   -Within packages:  24</span></span>
 <span><span class="co">#&gt;     --Between functions: 23</span></span>
 <span><span class="co">#&gt;     --Self-referential:  1</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">v</span>, height <span class="op">=</span> <span class="st">"700px"</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>text <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>, option <span class="op">=</span> <span class="st">"E"</span><span class="op">)</span></span></code></pre></div>
 <div id="htmlwidget-e5c8c404fe174e4c81bd" style="width:100%;height:700px;" class="visNetwork html-widget"></div>
 <script type="application/json" data-for="htmlwidget-e5c8c404fe174e4c81bd">{"x":{"nodes":{"id":["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64"],"label":["pkgdepR::all_info_ns","pkgdepR:::build_mapping","pkgdepR:::convert_to_visnetwork","pkgdepR::deps","pkgdepR:::exists_anywhere","pkgdepR:::get_fun_parts","pkgdepR::get_functions","pkgdepR:::get_inter","pkgdepR:::get_intra","pkgdepR:::get_links","pkgdepR:::get_mapping","pkgdepR:::is.pkgdepR","pkgdepR::ls_namespace_info","pkgdepR:::plot.pkgdepR","pkgdepR:::print.pkgdepR","pkgdepR:::summary.pkgdepR","magrittr::%!>%","magrittr::%$%","magrittr::%<>%","magrittr::%>%","magrittr::%T>%","magrittr:::.onLoad","magrittr:::[.fseq","magrittr:::[[.fseq","magrittr::add","magrittr::and","magrittr:::as_pipe_fn","magrittr::debug_fseq","magrittr::debug_pipe","magrittr::divide_by","magrittr::divide_by_int","magrittr::equals","magrittr::extract","magrittr::extract2","magrittr::freduce","magrittr::functions","magrittr::inset","magrittr::inset2","magrittr::is_greater_than","magrittr::is_in","magrittr::is_less_than","magrittr::is_weakly_greater_than","magrittr::is_weakly_less_than","magrittr::mod","magrittr::multiply_by","magrittr::multiply_by_matrix","magrittr::n'est pas","magrittr:::new_lambda","magrittr::not","magrittr::or","magrittr::pipe_eager_lexical","magrittr::pipe_lazy_masking","magrittr::pipe_nested","magrittr:::print.fseq","magrittr::raise_to_power","magrittr::set_attr","magrittr::set_attributes","magrittr::set_class","magrittr::set_colnames","magrittr::set_names","magrittr::set_rownames","magrittr::subtract","magrittr::undebug_fseq","magrittr::use_series"],"package":["pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr"],"exported":[1,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,1,1,1,1,1,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1],"group":["pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","pkgdepR","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr","magrittr"],"name":["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64"],"color":["rgba(0, 32, 77, 0.8)","rgba(0, 32, 77, 0.8)","rgba(0, 32, 77, 0.8)","rgba(0, 32, 77, 0.8)","rgba(0, 32, 77, 0.8)","rgba(0, 32, 77, 0.8)","rgba(0, 32, 77, 0.8)","rgba(0, 32, 77, 0.8)","rgba(0, 32, 77, 0.8)","rgba(0, 32, 77, 0.8)","rgba(0, 32, 77, 0.8)","rgba(0, 32, 77, 0.8)","rgba(0, 32, 77, 0.8)","rgba(0, 32, 77, 0.8)","rgba(0, 32, 77, 0.8)","rgba(0, 32, 77, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)","rgba(255, 234, 70, 0.8)"],"shape":["dot","square","square","dot","square","square","dot","square","square","square","square","square","dot","square","square","square","dot","dot","dot","dot","dot","square","square","square","dot","dot","square","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot","square","dot","dot","dot","dot","dot","square","dot","dot","dot","dot","dot","dot","dot","dot","dot","dot"]},"edges":{"from":["13","8","9","11","1","3","7","10","6","1","6","7","5","6","2","7","15","36","36","36","27","35","36","36","20","20","20","20","20","20"],"to":["1","2","2","2","4","4","4","4","6","8","8","8","9","9","10","11","16","23","24","28","48","48","54","63","8","7","14","4","11","15"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false},"edges":{"arrows":"from","arrowStrikethrough":false,"color":{"color":"#333333","opacity":1,"hover":"#111111","highlight":"black"}},"interaction":{"dragNodes":true,"hover":true,"zoomSpeed":1},"physics":{"solver":"repulsion","stabilization":{"enabled":true,"iterations":4000,"onlyDynamicEdges":false}}},"groups":["pkgdepR","magrittr"],"width":null,"height":"700px","idselection":{"enabled":true,"style":"width: 280px; height: 26px;","useLabels":true,"main":"Select function"},"byselection":{"enabled":true,"style":"width: 280px; height: 26px;","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false,"variable":"group","main":"Select package","values":["magrittr","pkgdepR"]},"main":{"text":null,"style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":{"text":"<strong>Packages: [pkgdepR], [magrittr]<\/strong><br><\/br>","style":"font-family:Helvetica, Helvetica, Times, serif; font-size:16px; text-align:left;"},"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script><p><br><br><br><br><br><br><strong>It’s as simple as that! </strong></p>
