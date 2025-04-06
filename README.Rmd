@@ -136,7 +136,7 @@ v
 
 To see the network visualization, simply call plot.
 ```r
-plot(dep)
+plot(v)
 
 ```
 

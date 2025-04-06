@@ -179,7 +179,7 @@ v
 To see the network visualization, simply call plot.
 
 ``` r
-plot(dep)
+plot(v)
 ```
 
 ## Multiple packages
@@ -191,7 +191,7 @@ v = pkgdepR::deps(pkg = c("pkgdepR", "magrittr"))
 ```
 
 ``` r
-v # alternatively, summary(v) or print(v)
+v
 #> 
 #> pkgdepR object
 #> ------------------------------
