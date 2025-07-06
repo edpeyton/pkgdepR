@@ -2,7 +2,7 @@
 % Please edit documentation in R/S3methods.R
 \name{summary.pkgdepR}
 \alias{summary.pkgdepR}
-\title{Summarise pkgdepR object}
+\title{Summarise a `pkgdepR` object}
 \usage{
 \method{summary}{pkgdepR}(object, ...)
 }
@@ -15,5 +15,5 @@
 No return value.
 }
 \description{
-Summarise pkgdepR object
+Summarise a `pkgdepR` object
 }

@@ -18,4 +18,6 @@ Imports:
   magrittr,
   viridisLite,
   scales,
-  utils
+  utils,
+  crayon,
+  cli

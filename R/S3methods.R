@@ -113,21 +113,19 @@ print.pkgdepR = function(x, ...) {
   dim1 = y %>% dplyr::filter(pkg_from != pkg_to) %>% dim()
   dim2 = y %>% dplyr::filter(pkg_from == pkg_to) %>% dim()
   
-  cat("\npkgdepR object\n")
-  cat(paste0(paste0(rep("-", 30), collapse = ""), "\n"))
-  cat(paste0("Packages:    ", paste0(x$pkg, collapse = ", ")))
-  cat(paste0("\nTotal nodes: ", scales::comma(length(unique(x$funs$id)))))
-  cat(paste0("\nTotal links: ", scales::comma(dim(x$links)[1])))
-  cat(paste0("\n  -Between packages: ", scales::comma(dim1[1])))
-  cat(paste0("\n  -Within packages:  ", scales::comma(dim2[1])))
-  cat(paste0("\n    --Between functions: ", scales::comma(dim2[1] - dim(x$links[x$links$from==x$links$to, ])[1])))
-  cat(paste0("\n    --Self-referential:  ", scales::comma(dim(x$links[x$links$from==x$links$to, ])[1])))
-  cat("\n\n")
+  message(crayon::green(crayon::bold("<pkgdepR object>")))
+  message(crayon::cyan(paste0("Packages: ", crayon::white(paste0(x$pkg, collapse = crayon::cyan(", "))))))
+  message(crayon::cyan(paste0("Total nodes: ", crayon::white(scales::comma(length(unique(x$funs$id)))))))
+  message(crayon::cyan(paste0("Total links: ", crayon::white(scales::comma(dim(x$links)[1])))))
+  message(crayon::blue(paste0(" ", cli::symbol$arrow_right, " Between packages: ", crayon::white(scales::comma(dim1[1])))))
+  message(crayon::blue(paste0(" ", cli::symbol$arrow_right, " Within packages:  ", crayon::white(scales::comma(dim2[1])))))
+  message(crayon::blue(crayon::italic(paste0("   ", cli::symbol$arrow_right, " Between functions: ", crayon::white(scales::comma(dim2[1] - dim(x$links[x$links$from==x$links$to, ])[1]))))))
+  message(crayon::blue(crayon::italic(paste0("   ", cli::symbol$arrow_right, " Self-referential:  ", crayon::white(scales::comma(dim(x$links[x$links$from==x$links$to, ])[1]))))))
   
 }
 
 
-#' @title Summarise pkgdepR object
+#' @title Summarise a `pkgdepR` object
 #' @param object An object of class \code{pkgdepR}.
 #' @param ... Redundant argument for consistency with method.
 #' @return No return value.
